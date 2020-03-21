@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { scroller } from 'react-scroll'
 
 function App() {
+  const ref = useRef<HTMLElement>(null);
+
+  const scrollToRef = () => {
+    if (!ref.current) {
+      return;
+    }
+    scroller.scrollTo(ref.current.id, {
+      smooth: true,
+      duration: 500,
+      delay: 100,
+    })
+  }
+
+  const array = Array.from({ length: 20 }, (_, k) => k)
+
   return (
     <div className="App">
-      <header className="App-header" id="header">
+      <header id="header" ref={ref}>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -19,14 +35,16 @@ function App() {
           Learn React
         </a>
       </header>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((v, i) => {
-        return (<div id={v.toString()}>
-          <hr />
-          <h3>{v}</h3>
-          <img src={logo} className="App-logo" alt="logo" />
-        </div>)
+      {array.map(v => {
+        return (
+          <>
+            <hr />
+            <h3>{v}</h3>
+            <button onClick={scrollToRef}>スクロール</button>
+          </>
+        )
       })}
-    </div>
+    </div >
   );
 }
 
