@@ -1,22 +1,16 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './App.css';
 import { scroller } from 'react-scroll'
 
 function App() {
-  const ref = useRef<HTMLElement>(null);
-
-  const scrollToRef = () => {
-    if (!ref.current) {
-      return;
-    }
-    scroller.scrollTo(ref.current.id, {
+  const scrollToId = (id: string) =>
+    scroller.scrollTo(id, {
       smooth: true,
       duration: 500,
       delay: 100,
     })
-  }
 
-  const array = Array.from({ length: 10 }, (_, k) => k)
+  const array = Array.from({ length: 20 }, (_, k) => k)
 
   return (
     <div className="App">
@@ -25,20 +19,20 @@ function App() {
           <>
             <hr />
             <h3>{v}</h3>
-            <button onClick={scrollToRef}>スクロール</button>
+            <button onClick={() => scrollToId(v.toString())}>下の同じ番号へスクロール</button>
           </>
         )
       })}
-      <header id="header" ref={ref}>
+      <header id="header">
         <h1>Header</h1>
       </header>
       {array.map(v => {
         return (
-          <>
+          <div id={(v).toString()}>
             <hr />
             <h3>{v}</h3>
-            <button onClick={scrollToRef}>スクロール</button>
-          </>
+            <button onClick={() => scrollToId((v + 1).toString())}>ひとつ下の番号へスクロール</button>
+          </div>
         )
       })}
     </div >
