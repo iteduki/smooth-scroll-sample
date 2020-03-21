@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { scroller } from 'react-scroll'
 
@@ -17,23 +16,21 @@ function App() {
     })
   }
 
-  const array = Array.from({ length: 20 }, (_, k) => k)
+  const array = Array.from({ length: 10 }, (_, k) => k)
 
   return (
     <div className="App">
+      {array.map(v => {
+        return (
+          <>
+            <hr />
+            <h3>{v}</h3>
+            <button onClick={scrollToRef}>スクロール</button>
+          </>
+        )
+      })}
       <header id="header" ref={ref}>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Header</h1>
       </header>
       {array.map(v => {
         return (
